@@ -2,6 +2,7 @@ package com.momia.service.impl;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 
@@ -38,29 +39,29 @@ public class ArticleImgServiceImpl implements ArticleImgService {
 		return flag;
 	}
 	
-	public void insert(String [] picStr,int arid, int flag) {
+	public void insert(List<String> picStr,int arid, int flag) {
 		if(flag == 0){
 			delete(arid);
-			if(picStr.length > 0){
-				for (int i = 0; i < picStr.length; i++) {
-					if(picStr[i] != null){
-						if(picStr[i] != null){
-							insert(formArticleImg(picStr[i],arid));
+			if(picStr.size() > 0){
+				for (int i = 0; i < picStr.size(); i++) {
+					if(picStr.get(i) != null){
+						if(picStr.get(i) != null){
+							insert(formArticleImg(picStr.get(i),arid));
 						}
 					}
 				}
 			}
-		}else if(flag == 1 && picStr.length > 0){
-			for (int i = 0; i < picStr.length; i++) {
-				if(picStr[i] != null){
-					insert(formArticleImg(picStr[i],arid));
+		}else if(flag == 1 && picStr.size() > 0){
+			for (int i = 0; i < picStr.size(); i++) {
+				if(picStr.get(i) != null){
+					insert(formArticleImg(picStr.get(i),arid));
 				}
 			}
 		}else{
-			if(picStr.length > 0 ){
-				for (int i = 0; i < picStr.length; i++) {
-					if(picStr[i] != null){
-						insert(formArticleImg(picStr[i],arid));
+			if(picStr.size() > 0 ){
+				for (int i = 0; i < picStr.size(); i++) {
+					if(picStr.get(i) != null){
+						insert(formArticleImg(picStr.get(i),arid));
 					}
 				}
 			}

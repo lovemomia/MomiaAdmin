@@ -14,5 +14,8 @@ public final class LoginUntil {
 	public final static int one = 1;
 	public final static int two = 2;
 	public final static int three = 3;
+
+	public final static String PIC_URL = "picUrl";
+	public final static String SERVER_PATH = "serverPath";
 	
 }

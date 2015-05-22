@@ -88,8 +88,7 @@
 								<td><c:out value="${node.abstracts}"></c:out></td>
 								<td><img src="${imgPath}${node.picUrl}"  style="margin:0 auto;display:block;height:100ps" width="100ps"></td>
 								<td><c:out value="${fn:substring(node.content,0,20)}"></c:out></td>
-								<td><c:out value="${node.author}"></c:out></td>
-								<td><c:out value="${node.wechatNo}"></c:out></td>
+								<td><c:out value="${node.authorId}"></c:out></td>
 								<td><c:out value="${fn:substring(node.addTime,0,19)}"></c:out></td>
 							</tr>
 							</c:forEach>
@@ -189,7 +188,6 @@
 		$(function() { 
 			    
 				$("#confirmbtn").click(function () {
-					alert('aaaaaaaaaaaa');
 		            $("#listform").submit();
 		        });
 			}); 

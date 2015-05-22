@@ -22,6 +22,8 @@ import javax.annotation.Resource;
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 
+import com.momia.until.LoginUntil;
+import com.momia.until.PropertyParameter;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
@@ -33,6 +35,7 @@ import org.springframework.stereotype.Service;
 import com.momia.entity.Article;
 import com.momia.entity.TopicArticle;
 import com.momia.service.ArticleService;
+import com.momia.until.LoginUntil;
 /**
  * 文章
  * @author duohongzhi
@@ -163,29 +166,26 @@ public class ArticleServiceImpl implements ArticleService {
 		}else{
 			entity.setAuthorId(authorid);
 		}
-		
+
 		entity.setUpdateTime((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(new Date()));
-		
+
 		return entity;
 	}
 
-	public String repStr(HttpServletRequest req,String[] tr,String content){
-		StringBuffer conpath = req.getRequestURL();
-		if(conpath != null && !StringUtils.isEmpty(conpath.toString())){
-			String urlStr = conpath.substring(0,conpath.indexOf(req.getRequestURI()));
+	public String repStr(HttpServletRequest req,List<String> tr,String content){
+			String urlStr = PropertyParameter.loadProperties().get(LoginUntil.PIC_URL).toString();
 			if(urlStr != null && !StringUtils.isEmpty(urlStr)){
 				try {
-					for (int i = 0; i < tr.length; i++) {
-						String tri = tr[i];
+					for (int i = 0; i < tr.size(); i++) {
+						String tri = tr.get(i);
 						if(tri == null){
 							continue;
 						}else{
 							if(tri != null && !StringUtils.isEmpty(tri)){
-								
-								Map<String, String> map = getPicWidthAndHeight(urlStr+tr[i]);
-								String stra = tr[i]+"\"";
-								String strb = tr[i]+"\" width=\""+map.get("width")+"px\" height=\""+map.get("height")+"px\"";
-								String strc = tr[i]+"\" width=";
+								Map<String, String> map = getPicWidthAndHeight(urlStr+tri);
+								String stra = tri+"\"";
+								String strb = tri+"\" width=\""+map.get("width")+"px\" height=\""+map.get("height")+"px\"";
+								String strc = tri+"\" width=";
 								if(content.indexOf(strc) > 0){
 									continue;
 								}else{
@@ -198,7 +198,6 @@ public class ArticleServiceImpl implements ArticleService {
 					e.printStackTrace();
 				}
 			}
-		}
 		return content;
 	}
 	
@@ -256,7 +255,7 @@ public class ArticleServiceImpl implements ArticleService {
 
 	public List<Article> findArticles(List<TopicArticle> tArticles) {
 		List<Article> ls = new ArrayList<Article>();
-		
+
 		if(tArticles.size() > 0){
 			for (int i = 0; i < tArticles.size(); i++) {
 				ls.add(findArticleById(tArticles.get(i).getArid()));
@@ -265,16 +264,16 @@ public class ArticleServiceImpl implements ArticleService {
 		return ls;
 	}
 	
-	public String[] findSrc(String contentStr){
+	public List<String> findSrc(String contentStr){
 		Pattern p = Pattern.compile("<img[^>]+src\\s*=\\s*['\"]([^'\"]+)['\"][^>]*>");
 		Matcher m = p.matcher(contentStr);
-		String[] arr = new String[10];
+		List<String> ls = new ArrayList<String>();
 		int i = 0;
 		while(m.find()) {
-		arr[i] = m.group(1);
+			ls.add(m.group(1));
 		i++;
 		}
-		return arr;
+		return ls;
 	}
 
 }

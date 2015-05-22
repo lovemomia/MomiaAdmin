@@ -25,7 +25,7 @@ public interface ArticleService {
 	
 	public List<Article> findArticles(List<TopicArticle> tArticles);
 	
-	public String[] findSrc(String contentStr);
+	public List<String> findSrc(String contentStr);
 
 	
 }

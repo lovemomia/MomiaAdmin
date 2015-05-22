@@ -18,6 +18,7 @@
 **/dependency-reduced-pom.xml
 **/buildNumber.properties
 
+web/image
 **/logs
 **/*.log
 **/*.pid
