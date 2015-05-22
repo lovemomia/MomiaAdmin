@@ -172,7 +172,7 @@ public class ArticleServiceImpl implements ArticleService {
 	public String repStr(HttpServletRequest req,String[] tr,String content){
 		StringBuffer conpath = req.getRequestURL();
 		if(conpath != null && !StringUtils.isEmpty(conpath.toString())){
-			String urlStr = "";//conpath.substring(0,conpath.indexOf("/MomiaAdmin"));
+			String urlStr = conpath.substring(0,conpath.indexOf("/image/"));
 			if(urlStr != null && !StringUtils.isEmpty(urlStr)){
 				try {
 					for (int i = 0; i < tr.length; i++) {
